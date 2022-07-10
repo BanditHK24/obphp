@@ -1,7 +1,7 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 function start(){
-system("clear")
+system("clear");
 echo "
 __________                    .___.__  __     ___ ___  ____  __.
 \______   \_____    ____    __| _/|__|/  |_  /   |   \|    |/ _|
