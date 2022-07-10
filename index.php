@@ -97,7 +97,7 @@ curl_close($ch);
 file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
 goto restart;?>',);
-  shell_exec(sprintf('%s > /dev/null 2>&1 &','screen -dmS screen php proxy.php', "echo 4"));
+  shell_exec(sprintf('%s > /dev/null 2>&1 &','screen -dmS screen php proxy.php'));
   sleep(10);
   $plist = file("http-proxy.txt");
   $proxytype = 'CURLPROXY_HTTP';
