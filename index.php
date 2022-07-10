@@ -1,6 +1,7 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 function start(){
+system("clear")
 echo "
 __________                    .___.__  __     ___ ___  ____  __.
 \______   \_____    ____    __| _/|__|/  |_  /   |   \|    |/ _|
@@ -52,7 +53,10 @@ echo "RETRYING!\n";
       goto retry1;
 }
 proxyretry:
-echo "[+]Enter Proxy filename: ";
+echo "[+]Proxy Source\n\n[1]Proxy from File\n[2]Api proxy refreshed every 10 seconds(Linux only)\n\n[+]Enter Choice: ";
+$proxysource = (int) trim(fgets(STDIN));
+  if($proxysource == "1"){
+  echo "[+]Enter Proxy filename: ";
 $proxyfile = trim(fgets(STDIN));
 $plist = file("$proxyfile");
 if($plist == false){
@@ -74,7 +78,30 @@ else{
   echo "Invalid choice, retry";
   goto proxytyperetry;
 }
+}elseif($proxysource == "2"){
+  file_put_contents('proxy.php','restart:
+$ch = curl_init();
+curl_setopt_array($ch,array(
+  CURLOPT_URL => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_HTTPHEADER => array('User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'),
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
 
+$resp = curl_exec($ch);
+curl_close($ch);
+file_put_contents('http-proxy.txt',$resp);
+sleep(600);
+goto restart;',);
+  system("screen -dmS screen php proxy.php");
+  $proxytype = 'CURLPROXY_HTTP';
+  echo 'Proxy is being pulled from Proxyscrape with type HTTP\n';
+  }
 combochoice2:
   echo "[+]Enter combo filename: ";
   $comboname = trim(fgets(STDIN));
