@@ -83,7 +83,7 @@ $ch = curl_init();
 curl_setopt_array($ch,array(
   CURLOPT_URL => '."'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all'".',
   CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '.',
+  CURLOPT_ENCODING => '."''".',
   CURLOPT_MAXREDIRS => 10,
   CURLOPT_TIMEOUT => 0,
   CURLOPT_HTTPHEADER => array('."'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'".'),
