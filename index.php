@@ -8,7 +8,7 @@ __________                    .___.__  __     ___ ___  ____  __.
  |______  /(____  /___|  /\____ | |__||__|   \___|_  /|____|__ \
         \/      \/     \/      \/                  \/         \/
 \n";
-echo "Welcome to BanditHK's Cards checker\n\n";
+echo "Welcome to BanditHK's PHP OpenBullet Version \n\n";
 
 retry1:
 echo "[1]Telegram\n[2]Discord\n\nSelect your webhook app: ";
