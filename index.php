@@ -97,7 +97,11 @@ curl_close($ch);
 file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
 goto restart;?>',);
+  if(PHP_OS == "Linux"){
   shell_exec(sprintf('%s > /dev/null 2>&1 &','screen -dmS screen php proxy.php'));
+  }elseif(PHP_OS == "WINNT"){
+  pclose(popen("start /B php proxy.php", "r"));
+  }else{echo "Unknown Operating system";goto proxyretry;}
   sleep(10);
   $plist = file("http-proxy.txt");
   $proxytype = 'CURLPROXY_HTTP';
