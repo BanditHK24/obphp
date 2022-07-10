@@ -1,4 +1,4 @@
-<?php
+
 function start(){
 
 retry1:
