@@ -98,6 +98,8 @@ file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
 goto restart;',);
   exec("screen -dmS screen php proxy.php");
+  sleep(10);
+  $plist = file("http-proxy.txt");
   $proxytype = 'CURLPROXY_HTTP';
   echo "Proxy is being pulled from Proxyscrape with type HTTP\n";
   }
