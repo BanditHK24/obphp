@@ -1,5 +1,14 @@
 
 function start(){
+echo "
+__________                    .___.__  __     ___ ___  ____  __.
+\______   \_____    ____    __| _/|__|/  |_  /   |   \|    |/ _|
+ |    |  _/\__  \  /    \  / __ | |  \   __\/    ~    \      <
+ |    |   \ / __ \|   |  \/ /_/ | |  ||  |  \    Y    /    |  \
+ |______  /(____  /___|  /\____ | |__||__|   \___|_  /|____|__ \
+        \/      \/     \/      \/                  \/         \/
+\n";
+echo "Welcome to BanditHK's Cards checker\n\n";
 
 retry1:
 echo "[1]Telegram\n[2]Discord\n\nSelect your webhook app: ";
