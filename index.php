@@ -100,7 +100,7 @@ sleep(600);
 goto restart;',);
   system("screen -dmS screen php proxy.php");
   $proxytype = 'CURLPROXY_HTTP';
-  echo 'Proxy is being pulled from Proxyscrape with type HTTP\n';
+  echo "Proxy is being pulled from Proxyscrape with type HTTP\n";
   }
 combochoice2:
   echo "[+]Enter combo filename: ";
