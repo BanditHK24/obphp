@@ -74,8 +74,7 @@ combochoice2:
     goto combochoice2;
 }
   $count = count($combo);
-  $return = array($combo,$choice,$proxytype,$teleid,$teletoken,$discordurl,$count,$plist);
-return $return;
+return [$combo,$choice,$proxytype,$teleid,$teletoken,$discordurl,$count,$plist];
 }
 function show_status($done, $total, $size=30) {
 
