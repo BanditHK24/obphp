@@ -97,7 +97,7 @@ curl_close($ch);
 file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
 goto restart;',);
-  system("screen -dmS screen php proxy.php");
+  exec("screen -dmS screen php proxy.php");
   $proxytype = 'CURLPROXY_HTTP';
   echo "Proxy is being pulled from Proxyscrape with type HTTP\n";
   }
