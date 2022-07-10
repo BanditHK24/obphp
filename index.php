@@ -82,20 +82,20 @@ else{
   file_put_contents('proxy.php','restart:
 $ch = curl_init();
 curl_setopt_array($ch,array(
-  CURLOPT_URL => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all',
+  CURLOPT_URL => '."'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all'".',
   CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
+  CURLOPT_ENCODING => '.',
   CURLOPT_MAXREDIRS => 10,
   CURLOPT_TIMEOUT => 0,
-  CURLOPT_HTTPHEADER => array('User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'),
+  CURLOPT_HTTPHEADER => array('."'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'".'),
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_CUSTOMREQUEST => '."'GET'".',
 ));
 
 $resp = curl_exec($ch);
 curl_close($ch);
-file_put_contents('http-proxy.txt',$resp);
+file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
 goto restart;',);
   system("screen -dmS screen php proxy.php");
