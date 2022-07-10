@@ -78,7 +78,7 @@ else{
   goto proxytyperetry;
 }
 }elseif($proxysource == "2"){
-  file_put_contents('proxy.php','restart:
+  file_put_contents('proxy.php','<?php restart:
 $ch = curl_init();
 curl_setopt_array($ch,array(
   CURLOPT_URL => '."'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all'".',
@@ -96,7 +96,7 @@ $resp = curl_exec($ch);
 curl_close($ch);
 file_put_contents('."'http-proxy.txt'".',$resp);
 sleep(600);
-goto restart;',);
+goto restart;?>',);
   exec("screen -dmS screen php proxy.php");
   sleep(10);
   $plist = file("http-proxy.txt");
