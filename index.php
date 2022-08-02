@@ -1,4 +1,4 @@
-
+<?php
 function start(){
 system("clear");
 echo "
