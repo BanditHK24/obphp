@@ -274,7 +274,7 @@ if(str_contains($response,'Wrong email or password.')){
   replaceOut("[+]Total Progress: ".show_status($total, $count)."\n[+]Dead: $fail\n[+]Hits: $hits\n");
  
 }
- elseif(str_contains($response,'dashboard'){
+ elseif(str_contains($response,'dashboard')){
  $total++;
         $hits++;
         if($choice == "2"){
